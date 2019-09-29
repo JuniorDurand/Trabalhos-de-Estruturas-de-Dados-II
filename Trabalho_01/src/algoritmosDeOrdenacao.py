@@ -30,19 +30,36 @@ class InsertionSort(object):
 """
 class InsertionSort(object):
 
+	def __init__(self):
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+	def summary():
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
+
 	def ordenar( self, col, start=0,  end=None):
 		if end == None:
 			end = len(col)
+			self.cmp += 1
+			self.atb += 1
 			
 		for j in range(start,end):
 			key = col[j]
+			self.cmp += 1
+			self.atb += 2
 
 			i = j -1
+			self.atb +=1
 			while i >= 0 and int(col[i]['weight']) > int(key['weight']):
 				col[i+1] = col[i]
 				i-=1
+				self.cmp += 2
+				self.atb += 2
 
 			col[i+1] = key
+			self.atb += 1
 			
 		return col
 
@@ -50,19 +67,39 @@ class InsertionSort(object):
 
 class SelectionSort(object):
 
+	def __init__(self):
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+	def summary():
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
+
+
 	def ordenar( self, col, start=0,  end=None):
 		if end == None:
 			end = len(col)
+			self.cmp += 1
+			self.atb += 1
 			
 		for i in range(start,end):
 			min = i
+			self.cmp += 1
+			self.atb += 2
 			for j in range(i+1, end):
+				self.cmp += 1
+				self.atb += 1
+
+				self.cmp += 1
 				if int(col[j]['weight']) < int(col[min]['weight']) :
 					min = j
+					self.atb += 1
 
 			temp = col[min]
 			col[min] = col[i]
 			col[i] = temp
+			self.atb += 3
 
 		return col
 
@@ -70,32 +107,64 @@ class SelectionSort(object):
 
 class ShellSort(object):
 
+	def __init__(self):
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+	def summary():
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
+
+	
 	def ordenar( self, col, start=0,  end=None):
+		self.cmp += 1
 		if end == None:
 			end = len(col)
+			self.atb += 1
 			
 		h = 1
+		self.atb += 1
+		
+		self.cmp += 1
 		while h < end - start:
 			h = (3*h)+1
+			self.atb += 1
 
+		self.cmp += 1
 		while h > 0:
 			h = (h-1)//3
+			self.atb += 1
 
 			for i in range(h, end - start):
 				temp = col[i]
 				j=i
+				self.cmp += 1
+				self.atb += 3
 
 				while int(col[j-h]['weight']) > int(temp['weight']):
 					col[j] = col[j-h]
 					j = j - h
+					self.atb += 3
+					self.cmp += 2
 					if (j < h):
 						break
 
 				col[j] = temp
+				self.atb += 1
 
 		return col
 
 class MergeSort(object):
+
+	def __init__(self):
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+	def summary():
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
 
 
 
