@@ -35,7 +35,7 @@ class InsertionSort(object):
 		self.cmp = 0
 		self.atb = 0
 
-	def summary():
+	def summary(self):
 		print("comparações: ", self.cmp)
 		print("atribuições: ", self.atb)
 
@@ -72,7 +72,7 @@ class SelectionSort(object):
 		self.cmp = 0
 		self.atb = 0
 
-	def summary():
+	def summary(self):
 		print("comparações: ", self.cmp)
 		print("atribuições: ", self.atb)
 
@@ -112,7 +112,7 @@ class ShellSort(object):
 		self.cmp = 0
 		self.atb = 0
 
-	def summary():
+	def summary(self):
 		print("comparações: ", self.cmp)
 		print("atribuições: ", self.atb)
 
@@ -162,43 +162,60 @@ class MergeSort(object):
 		self.cmp = 0
 		self.atb = 0
 
-	def summary():
+	def summary(self):
 		print("comparações: ", self.cmp)
 		print("atribuições: ", self.atb)
 
 
 
-	def ordenar(self,  col, start = 0, end = None): 
+	def ordenar(self,  col, start = 0, end = None, chamada=0): 
+		
+		self.cmp+=1
 		if len(col) >1:
 			mid = len(col)//2 
+			self.atb+=1
 			colL = col[:mid]  
 			colR = col[mid:]
 
-			self.ordenar(colL) 
-			self.ordenar(colR) 
+			colL = self.ordenar(colL, chamada=chamada+1) 
+			colR = self.ordenar(colR, chamada=chamada+1) 
 
 			i = 0
 			j = 0
 			k = 0
+			self.atb+=3
+
+
 
 			while i < len(colL) and j < len(colR): 
+				self.cmp+=2
 				if int(colL[i]['weight']) < int(colR[j]['weight']): 
 					col[k] = colL[i] 
 					i+=1
+					self.atb+=2
 				else: 
 					col[k] = colR[j] 
 					j+=1
+					self.atb+=2
 				k+=1
+				self.atb+=1
 
-			while i < len(colL): 
+			while i < len(colL):
+				self.cmp+=1
 				col[k] = colL[i] 
 				i+=1
 				k+=1
+				self.atb+=3
 
 			while j < len(colR): 
+				self.cmp+=1
 				col[k] = colR[j] 
 				j+=1
 				k+=1
+				self.atb+=3
+
+
+		return col
 
 
 class MergeSortPartialInsert(object):
@@ -206,51 +223,76 @@ class MergeSortPartialInsert(object):
 	def __init__(self, L):
 		self.insert = InsertionSort()
 		self.L = L
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+
+	def summary(self):
+		print("sumario insert:")
+		self.insert.summary()
+		print("sumario merger:")
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
+
 
 	
 	def setL(self, L):
 		self.L = L
 
 	
-	def ordenar(self,  col, start = 0, end = None): 
+	def ordenar(self,  col, start = 0, end = None):
+		self.cmp+=1
 		if len(col) >1:
 			mid = len(col)//2 
+			self.atb+=1
 			colL = col[:mid] 
 			colR = col[mid:] 
 
+			self.cmp+=1
 			if len(colL) < self.L:
-				self.insert.ordenar(colL)
+				colL = self.insert.ordenar(colL)
 			else:
-				self.ordenar(colL)
+				colL = self.ordenar(colL)
 
+			self.cmp+=1
 			if len(colR) < self.L:
-				self.insert.ordenar(colR)
+				colR = self.insert.ordenar(colR)
 			else:
-				self.ordenar(colR) 
+				colR = self.ordenar(colR) 
 
 			i = 0
 			j = 0
 			k = 0
+			self.atb+=3
 
 			while i < len(colL) and j < len(colR): 
+				self.cmp+=2
 				if int(colL[i]['weight']) < int(colR[j]['weight']): 
 					col[k] = colL[i] 
 					i+=1
+					self.atb+=2
 				else: 
 					col[k] = colR[j] 
 					j+=1
+					self.atb+=2
 				k+=1
+				self.atb+=1
 
 			
 			while i < len(colL): 
+				self.cmp+=1
 				col[k] = colL[i] 
 				i+=1
 				k+=1
+				self.atb+=3
 
 			while j < len(colR): 
+				self.cmp+=1
 				col[k] = colR[j] 
 				j+=1
 				k+=1
+				self.atb+=3
 
 		return col
 
@@ -261,18 +303,33 @@ class MergeSortFinalInsert(object):
 	def __init__(self, L):
 		self.insert = InsertionSort()
 		self.L = L
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+
+	def summary(self):
+		print("sumario insert:")
+		self.insert.summary()
+		print("sumario merger:")
+		print("comparações: ", self.cmp+self.insert.cmp)
+		print("atribuições: ", self.atb+self.insert.atb)
+
 
 	
 	def setL(self, L):
 		self.L = L
 
 	
-	def ordenar(self,  col, start = 0, end = None, chamada=0): 
+	def ordenar(self,  col, start = 0, end = None, chamada=0):
+		self.cmp+=1
 		if len(col) >1:
 			mid = len(col)//2 
+			self.atb+=1
 			colL = col[:mid]
 			colR = col[mid:]
 
+			self.cmp+=1
 			if not (len(colL) < self.L and len(colR) < self.L):
 				self.ordenar(colL, chamada= chamada+1)
 				self.ordenar(colR, chamada= chamada+1) 
@@ -283,8 +340,10 @@ class MergeSortFinalInsert(object):
 			i = 0
 			j = 0
 			k = 0
+			self.atb+=3
 
 			while i < len(colL) and j < len(colR): 
+				self.cmp+=2
 				if int(colL[i]['weight']) < int(colR[j]['weight']): 
 					col[k] = colL[i] 
 					i+=1
@@ -294,20 +353,22 @@ class MergeSortFinalInsert(object):
 				k+=1
 
 			# Checking if any element was left 
-			while i < len(colL): 
+			while i < len(colL):
+				self.cmp+=1 
 				col[k] = colL[i] 
 				i+=1
 				k+=1
+				self.atb+=3 
 
 			while j < len(colR): 
+				self.cmp+=1 
 				col[k] = colR[j] 
 				j+=1
 				k+=1
+				self.atb+=1 
 
 			if chamada == 0:
-				print(col)
-				self.insert.sort(col)
-				print(col)
+				self.insert.ordenar(col)
 
 		return col
 
@@ -315,12 +376,26 @@ class MergeSortFinalInsert(object):
 
 class Quicksort(object):
 
+	def __init__(self):
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+	def summary(self):
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
+
+
 	def ordenar( self, col, start=0,  end=None):
+		self.cmp+=1
 		if end == None:
 			end = len(col) -1
+			self.atb+=1
 		
+		self.cmp+=1
 		if start < end:
 			part = self.partition(col, start, end)
+			self.atb+=1
 			self.ordenar(col, start, part-1)
 			self.ordenar(col, part+1, end)
 
@@ -329,14 +404,20 @@ class Quicksort(object):
 	def partition(self, col, start, end):
 		pivot = col[end]
 		i = start-1
+		self.atb+=2
 
 		for j in range(start, end):
+			self.atb+=1
+			self.cmp+=2
 			if int(col[j]['weight']) < int(pivot['weight']):
 				i+=1
 				col[j], col[i] = col[i], col[j]
+				self.atb+=3
 
+		self.cmp+=1
 		if int(pivot['weight']) < int(col[i+1]['weight']):
 			col[i+1], col[end] = col[end], col[i+1]
+			self.atb+=2
 
 		return i +1
 
@@ -346,22 +427,39 @@ class QuickSortPartialInsert(object):
 	def __init__(self, L):
 		self.insert = InsertionSort()
 		self.L = L
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+
+	def summary(self):
+		print("sumario insert:")
+		self.insert.summary()
+		print("sumario Quick:")
+		print("comparações: ", self.cmp)
+		print("atribuições: ", self.atb)
 
 	def setL(self, L):
 		self.L = L
 
 	def ordenar( self, col, start=0,  end=None):
+		self.cmp+=1
 		if end == None:
 			end = len(col) -1
+			self.atb+=1
 		
+		self.cmp+=1
 		if start < end:
+			self.atb+=1
 			part = self.partition(col, start, end)
 
+			self.cmp+=1
 			if part - start < self.L :
 				self.insert.ordenar(col, start, part)
 			else:
 				self.ordenar(col, start, part-1)
 
+			self.cmp+=1
 			if end - part < self.L:		
 				self.insert.ordenar(col, part +1, end)
 			else:
@@ -372,14 +470,20 @@ class QuickSortPartialInsert(object):
 	def partition(self, col, start, end):
 		pivot = col[end]
 		i = start-1
+		self.atb+=2
 
 		for j in range(start, end):
+			self.atb+=1
+			self.cmp+=2
 			if int(col[j]['weight']) < int(pivot['weight']):
 				i+=1
 				col[j], col[i] = col[i], col[j]
+				self.atb+=3
 
+		self.cmp+=1
 		if int(pivot['weight']) < int(col[i+1]['weight']):
 			col[i+1], col[end] = col[end], col[i+1]
+			self.atb+=2
 
 		return i +1
 
@@ -391,23 +495,41 @@ class QuicksortFinalInsert(object):
 	def __init__(self, L):
 		self.insert = InsertionSort()
 		self.L = L
+		#quantificando atribuições e comparações
+		self.cmp = 0
+		self.atb = 0
+
+
+	def summary(self):
+		print("sumario insert:")
+		self.insert.summary()
+		print("sumario Quick:")
+		print("comparações: ", self.cmp+self.insert.cmp)
+		print("atribuições: ", self.atb+self.insert.atb)
 
 	def setL(self, L):
 		self.L = L
 
 	def ordenar( self, col, start=0,  end=None, chamada=0):
+		self.cmp+=1
 		if end == None:
 			end = len(col) -1
+			self.atb+=1
 		
+		self.cmp+=1
 		if start < end:
 			part = self.partition(col, start, end)
+			self.atb+=1
 
+			self.cmp+=1
 			if part-1 - start > self.L:
 				self.ordenar(col, start, part-1, chamada=chamada+1)
 
+			self.cmp+=1
 			if end - part+1 > self.L:
 				self.ordenar(col, part+1, end, chamada=chamada+1)
 
+		self.cmp+=1
 		if chamada == 0:
 			self.insert.ordenar(col)
 
@@ -416,14 +538,20 @@ class QuicksortFinalInsert(object):
 	def partition(self, col, start, end):
 		pivot = col[end]
 		i = start-1
+		self.atb+=2
 
 		for j in range(start, end):
+			self.atb+=1
+			self.cmp+=2
 			if int(col[j]['weight']) < int(pivot['weight']):
 				i+=1
 				col[j], col[i] = col[i], col[j]
+				self.atb+=3
 
+		self.cmp+=1
 		if int(pivot['weight']) < int(col[i+1]['weight']):
 			col[i+1], col[end] = col[end], col[i+1]
+			self.atb+=2
 
 		return i +1
 

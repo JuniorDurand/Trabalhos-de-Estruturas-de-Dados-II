@@ -6,7 +6,6 @@ import argparse
 import time
 
 
-
 '''
 Implemente o algoritmo de ordenação no arquivo algoritmosDeOrdenacao.py
 Instruções básicas de como fazer a implementação estão no arquivo algoritmosDeOrdenacao.py
@@ -36,6 +35,9 @@ if __name__ == "__main__":
 	#Em algoritmos que  NÃO suportam inserção parcial:
 	# "main.py [algoritmo] [arquivo de entrada] [arquivo de saida]"
 	parser.add_argument('-l', '--length', type=int, help="tamanho da partição por inserção")
+
+
+	parser.add_argument('-v', '--verbose', action="store_true", default=False, help="imprime no final da execução dados do precedimento")
 
 	args = parser.parse_args()
 
@@ -67,10 +69,10 @@ if __name__ == "__main__":
 
 	else:
 
-		if algoritmo.lower() == "insertionsort":
+		if algoritmo.lower() == "insertsort":
 			algoritmoDeOrdenacao = InsertionSort()
 
-		elif algoritmo.lower() == "selectionsort":
+		elif algoritmo.lower() == "selectsort":
 			algoritmoDeOrdenacao = SelectionSort()
 
 		elif algoritmo.lower() == "shellsort":
@@ -96,10 +98,22 @@ if __name__ == "__main__":
 	arquivoJson = args.arquivo_entrada
 	arquivoDeSaida = args.arquivo_saida
 
+	start = time.time()
+
+	
 	grafo = Grafo()
 	grafo.estabelecerAlgoritmoDeOrdencao(algoritmoDeOrdenacao)
 	grafo.carregarGrafo(arquivoJson)
 
 	arvoreGeradoraMinima =  grafo.executarKruskal() 
+	
+	end = time.time()
+
 	SalvarArvoreGeradoraMinimaEmArquivo(arquivoDeSaida, arvoreGeradoraMinima)
+
+	if args.verbose:
+		print("tempo de execução : ", end-start)
+		algoritmoDeOrdenacao.summary()
+
+
 
