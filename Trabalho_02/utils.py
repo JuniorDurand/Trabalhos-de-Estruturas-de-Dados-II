@@ -68,6 +68,89 @@ def loadRedBlack(lista):
 	return None
 
 
+#OP1 elementos de A que estão em B
+#OP2 Inserir em B, os elementos de A que Não estão em B
+#OP3 Remover os elementos de A que estão em B
+
+def OP1List(lista1, lista2):
+	if not (lista1 is None or lista2 is None):
+		inter = []
+		for item in lista1:
+			aux = lista2.get(item)
+			if aux == item:
+				inter.append(item)
+		return inter
+
+
+def OP1Hash(lista, Hash):
+	if not (lista is None or Hash is None):
+		inter = []
+		for item in lista:
+			aux = Hash.get(item)
+			if aux == item:
+				inter.append(item)
+		return inter
+
+def OP1BTree(lista, BTree):
+	if not (lista is None or BTree is None):
+		inter = []
+		for item in lista:
+			aux = BTree.get(item)
+			if aux == item:
+				inter.append(item)
+		return inter
+
+
+
+def OP1AVL(lista, AVL):
+	if not (lista is None or AVL is None):
+		inter = []
+		for item in lista:
+			aux = AVL.get(item)
+			if aux == item:
+				inter.append(item)
+		return inter
+
+
+def OP1RB(lista, RB):
+	if not (lista is None or RB is None):
+		inter = []
+		for item in lista:
+			aux = RB.get(item)
+			if aux == item:
+				inter.append(item)
+		return inter
+
+
+def OP1(est1, est2, Name):
+	if Name == "lista":
+		l = OP1List(est1, est2)
+	elif Name == "hash":
+		l = OP1Hash(est1, est2)
+	elif Name == "binary tree":
+		l = OP1BTree(est1, est2)
+	elif Name == "avl":
+		l = OP1AVL(est1, est2)
+	elif Name == "red black":
+		l = OP1RB(est1, est2)
+
+	if l != None:
+		return str(l)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
