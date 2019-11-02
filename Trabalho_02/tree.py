@@ -123,9 +123,9 @@ class BTree(object):
 		if not Node is None:
 			stat = self.cmpKey(Node.data, data)
 			if stat < 0:
-				return self.__insert(data, Node.left)
+				return self.__get(data, Node.left)
 			elif stat > 0:
-				return = self.__insert(data, Node.right)
+				return  self.__get(data, Node.right)
 			else:
 				return Node.data
 
