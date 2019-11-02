@@ -7,7 +7,6 @@ class Node(object):
 
 
 class List(object):
-	"""docstring for list"""
 	def __init__(self):
 		self.first = None
 		self.len = 0
@@ -31,11 +30,30 @@ class List(object):
 			yield cur.data
 			cur = cur.next
 
+	def __defaultCMP(data, key):
+		if data == key:
+			return True
+		else:
+			return False
+
 	def append(self, data):
 		newNode = Node(data)
 		newNode.next = self.first
 		self.first = newNode
 		self.len +=1
+
+	def get(self, key, cmp=None):
+		if cmp == None:
+			cmp = self.__defaultCMP
+
+		cur  = self.first
+		while not cur is None:
+			if cmp(cur.data, key):
+				return cur.data
+			else:
+				cur = cur.next
+		return None
+
 
 
 
