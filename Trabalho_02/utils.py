@@ -222,12 +222,81 @@ def OP2(est1, est2, Name):
 
 
 
+#OP3 Remover os elementos de A que estão em B
+
+
+def OP3List(lista1, lista2):
+	if not (lista1 is None or lista2 is None):
+		for item in lista1:
+			aux = lista2.get(item)
+			if aux != None:
+				lista1.remove(item)
+
+		return str(lista1)
+		
+
+
+def OP3Hash(lista, Hash):
+	if not (lista is None or Hash is None):
+		for item in lista:
+			aux = Hash.get(item)
+			if aux != None:
+				lista.remove(item)
+		
+		return str(lista)
+		
+
+def OP3BTree(lista, BTree):
+	if not (lista is None or BTree is None):
+		for item in lista:
+			aux = BTree.get(item)
+			if aux != None:
+				lista.remove(item)
+		
+		return str(lista)
 
 
 
+def OP3AVL(lista, AVL):
+	if not (lista is None or AVL is None):
+		for item in lista:
+			aux = AVL.get(item)
+			if aux != None:
+				lista.remove(item)
+		
+		return str(lista)
 
 
 
+def OP3RB(lista, RB):
+	if not (lista is None or RB is None):
+		for item in lista:
+			aux = RB.get(item)
+			if aux != None:
+				lista.remove(item)
+		
+		return str(lista)
+
+
+def OP3(est1, est2, Name):
+	if Name == "lista":
+		est2 = loadLista(est2)
+		l = OP3List(est1, est2)
+	elif Name == "hash":
+		est2 = loadHash(est2)
+		l = OP3Hash(est1, est2)
+	elif Name == "binary_tree":
+		est2 = loadBtree(est2)
+		l = OP3BTree(est1, est2)
+	elif Name == "avl":
+		est2 = loadAVL(est2)
+		l = OP3AVL(est1, est2)
+	elif Name == "red_black":
+		est2 = loadRedBlack(est2)
+		l = OP3RB(est1, est2)
+
+	if l != None:
+		return str(l)
 
 
 
