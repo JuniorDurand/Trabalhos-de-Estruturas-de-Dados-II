@@ -67,7 +67,28 @@ class List(object):
 				cur = cur.next
 		return None
 
+	def remove(self, key, cmp=None):
+		if cmp == None:
+			cmp = self.__defaultCMP
 
+		prev = None
+		cur  = self.first
+		while not cur is None:
+			if cmp(cur.data, key):
+				break
+			else:
+				prev = cur
+				cur = cur.next
+		
+		if not cur is None:
+			if not prev is None:
+				prev.next = cur.next
+			else:
+				self.first = cur.next
+
+			return cur.data
+
+		return None
 
 
 		
