@@ -90,7 +90,8 @@ class  AvlTree(object):
 		if Node is None:
 			return 0
 		else:
-			return max(self.__getH(Node.right), self.__getH(Node.left)) + 1
+			return Node.h
+			#return max(self.__getH(Node.right), self.__getH(Node.left)) + 1
 		
 	def __getBalance(self, Node):
 		if Node is None:
