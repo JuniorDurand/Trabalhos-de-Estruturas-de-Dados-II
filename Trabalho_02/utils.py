@@ -152,6 +152,8 @@ def OP2List(lista1, lista2):
 			aux = lista2.get(item)
 			if aux == None:
 				lista2.append(item)
+
+		return str(lista2)
 		
 
 
@@ -162,6 +164,8 @@ def OP2Hash(lista, Hash):
 			if aux == None:
 				Hash.insert(item)
 		
+		return str(Hash)
+		
 
 def OP2BTree(lista, BTree):
 	if not (lista is None or BTree is None):
@@ -170,6 +174,7 @@ def OP2BTree(lista, BTree):
 			if aux == None:
 				BTree.insert(item)
 		
+		return str(BTree)
 
 
 
@@ -180,6 +185,8 @@ def OP2AVL(lista, AVL):
 			if aux == None:
 				AVL.insert(item)
 		
+		return str(AVL)
+
 
 
 def OP2RB(lista, RB):
@@ -189,10 +196,29 @@ def OP2RB(lista, RB):
 			if aux == None:
 				RB.insert(item)
 		
+		return str(RB)
 
 
 
+def OP2(est1, est2, Name):
+	if Name == "lista":
+		est2 = loadLista(est2)
+		l = OP2List(est1, est2)
+	elif Name == "hash":
+		est2 = loadHash(est2)
+		l = OP2Hash(est1, est2)
+	elif Name == "binary_tree":
+		est2 = loadBtree(est2)
+		l = OP2BTree(est1, est2)
+	elif Name == "avl":
+		est2 = loadAVL(est2)
+		l = OP2AVL(est1, est2)
+	elif Name == "red_black":
+		est2 = loadRedBlack(est2)
+		l = OP2RB(est1, est2)
 
+	if l != None:
+		return str(l)
 
 
 

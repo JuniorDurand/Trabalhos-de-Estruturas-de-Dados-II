@@ -6,13 +6,15 @@ class HashItem:
 
 	def __str__(self):
 		if (self.stat == "insert"):
-			return("(" + str(self.key) + "," + str(self.data)+")")
+			#return("(" + str(self.key) + "," + str(self.data)+")")
+			return (str(self.data)+", ")
 		else:
 			return ""
 
 	def __repr__(self):
 		if (self.stat == "insert"):
-			return("(" + str(self.key) + "," + str(self.data)+")")
+			#return("(" + str(self.key) + "," + str(self.data)+")")
+			return str(self.data)
 		else:
 			return ""
 

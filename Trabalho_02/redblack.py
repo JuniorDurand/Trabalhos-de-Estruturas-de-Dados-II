@@ -8,7 +8,8 @@ class TNode(object):
 		self.color = color #true is red; false is black
 
 	def __str__(self):
-		return str(self.data) +" "+ str(self.color) 
+		#return str(self.data) +" "+ str(self.color) 
+		return str(self.data) 
 
 	def getColorDad(self):
 		if not self.parent is None:
@@ -45,6 +46,25 @@ class RedBlack(object):
 			return 1
 		else:
 			return 0
+
+	def avStr(self, Node, string):
+		if not (Node == None):
+			string1 = self.avStr(Node.left, string)
+			string2 = (str(Node) + ", ")
+			string3 = self.avStr(Node.right, string)
+			return string1+string2+string3
+
+		else:
+			return ""
+
+
+	def __str__(self):
+		string = "["
+		string += self.avStr( self.__root, string)
+		string += "]"
+
+		return string
+
 
 	def getColor(self, Node):
 		if not Node is None:

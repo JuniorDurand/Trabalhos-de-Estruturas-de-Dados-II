@@ -7,7 +7,8 @@ class TNode(object):
 		self.right = None
 
 
-
+	def __str__(self):
+		return str(self.data)
 
 
 
@@ -33,8 +34,24 @@ class BTree(object):
 		else:
 			return 0
 
+	def avStr(self, Node, string):
+		if not (Node == None):
+			string1 = self.avStr(Node.left, string)
+			string2 = (str(Node) + ", ")
+			string3 = self.avStr(Node.right, string)
+			return string1+string2+string3
+
+		else:
+			return ""
 
 
+	def __str__(self):
+		string = "["
+		string += self.avStr( self.root, string)
+		string += "]"
+
+		return string
+		
 	""" METODO PRIVADO DA INSERÇÃO """
 	def __insert(self, data, Node):
 

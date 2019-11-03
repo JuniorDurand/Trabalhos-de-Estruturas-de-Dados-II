@@ -55,6 +55,14 @@ if __name__ == "__main__":
 		print(result)
 		print("========")
 
+	elif operacao == 2:
+
+		result = OP2(A, segundoData, estrutura_dados)
+
+		print("========")
+		print(result)
+		print("========")
+
 
 
 

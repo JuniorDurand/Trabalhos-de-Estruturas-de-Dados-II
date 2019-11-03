@@ -6,6 +6,9 @@ class TNode(object):
 		self.right = None
 		self.h = 1
 
+	def __str__(self):
+		return str(self.data)
+
 class  AvlTree(object):
 
 	def __init__(self, funCMP=None, funCMPKey = None):
@@ -20,6 +23,24 @@ class  AvlTree(object):
 			self.cmpKey = self.defautCMP
 		else:
 			self.cmpKey = funCMPKey
+
+	def avStr(self, Node, string):
+		if not (Node == None):
+			string1 = self.avStr(Node.left, string)
+			string2 = (str(Node) + ", ")
+			string3 = self.avStr(Node.right, string)
+			return string1+string2+string3
+
+		else:
+			return ""
+
+
+	def __str__(self):
+		string = "["
+		string += self.avStr( self.root, string)
+		string += "]"
+
+		return string
 
 	def defautCMP(self, a, b):
 		if (a > b):

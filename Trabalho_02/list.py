@@ -4,6 +4,8 @@ class Node(object):
 		self.data = data
 		self.next = None		
 
+	def __str__(self):
+		return str(self.data)
 
 
 class List(object):
@@ -29,6 +31,17 @@ class List(object):
 		while cur:
 			yield cur.data
 			cur = cur.next
+
+	def __str__(self):
+		string = "["
+		cur = self.first
+		while not cur is None:
+			string += (str(cur)+", ")
+			cur = cur.next
+		
+		string += "]"
+		return string
+
 
 	def __defaultCMP(self,data, key):
 		if data == key:
