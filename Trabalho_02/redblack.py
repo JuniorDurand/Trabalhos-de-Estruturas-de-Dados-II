@@ -202,7 +202,7 @@ class RedBlack(object):
 	def height(self):
 		return self.__height(self.__root)
 		
-	def search(self, key):
+	def get(self, key):
 		aux = self.__root
 		while aux is not None:
 			if self.cmpKey(aux.data, key) == 0:
