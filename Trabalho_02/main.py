@@ -42,10 +42,28 @@ if __name__ == "__main__":
 	estrutura_dados = args.estrutura_dados
 	operacao = args.operacao
 
+	
 
+	print("Carregando primeiro arquivo")
 	primeiroData = readAchive(primeiro_arquivo)
-	segundoData = readAchive(segundo_arquivo)
+	if not primeiroData is None:
+		print("primeiro arquivo carregado")
+	else:
+		print("primeiro não carregado")
+		exit()
 
+	
+
+	print("Carregando segundo arquivo")
+	segundoData = readAchive(segundo_arquivo)
+	if not primeiroData is None:
+		print("segundo arquivo carregado")
+	else:
+		print("segundo não carregado")
+		exit()
+
+	
+	start = time.time()
 	A = loadLista(primeiroData)
 	if operacao == 1:
 
@@ -63,6 +81,21 @@ if __name__ == "__main__":
 		print(result)
 		print("========")
 
+	elif operacao == 3:
+
+		result = OP3(A, segundoData, estrutura_dados)
+
+		print("========")
+		print(result)
+		print("========")
+
+	else:
+		print("Operação invalida")
+		exit()
+
+
+	end = time.time()
+	print("tempo de execução : ", end-start)
 
 
 
