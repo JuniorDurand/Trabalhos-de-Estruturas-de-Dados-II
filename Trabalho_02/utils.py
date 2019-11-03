@@ -124,14 +124,19 @@ def OP1RB(lista, RB):
 
 def OP1(est1, est2, Name):
 	if Name == "lista":
+		est2 = loadLista(est2)
 		l = OP1List(est1, est2)
 	elif Name == "hash":
+		est2 = loadHash(est2)
 		l = OP1Hash(est1, est2)
-	elif Name == "binary tree":
+	elif Name == "binary_tree":
+		est2 = loadBtree(est2)
 		l = OP1BTree(est1, est2)
 	elif Name == "avl":
+		est2 = loadAVL(est2)
 		l = OP1AVL(est1, est2)
-	elif Name == "red black":
+	elif Name == "red_black":
+		est2 = loadRedBlack(est2)
 		l = OP1RB(est1, est2)
 
 	if l != None:

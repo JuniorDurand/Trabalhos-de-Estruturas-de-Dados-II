@@ -25,6 +25,9 @@ if __name__ == "__main__":
 
 	#definindo TAD utilizado
 	parser.add_argument("estrutura_dados", type=str, help="Estrutura de dados de B")
+
+	#definindo operação
+	parser.add_argument("operacao", type=int, help="Operação")
 	
 
 	#utilizar da seguinte forma:
@@ -37,9 +40,22 @@ if __name__ == "__main__":
 	primeiro_arquivo = args.primeiro_arquivo
 	segundo_arquivo = args.segundo_arquivo
 	estrutura_dados = args.estrutura_dados
+	operacao = args.operacao
+
 
 	primeiroData = readAchive(primeiro_arquivo)
 	segundoData = readAchive(segundo_arquivo)
 
-	print(primeiroData[:5])
+	A = loadLista(primeiroData)
+	if operacao == 1:
+
+		result = OP1(A, segundoData, estrutura_dados)
+
+		print("========")
+		print(result)
+		print("========")
+
+
+
+
 	
