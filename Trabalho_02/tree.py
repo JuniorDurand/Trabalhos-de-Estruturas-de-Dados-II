@@ -121,11 +121,11 @@ class BTree(object):
 
 	def __get(self, key, Node):
 		if not Node is None:
-			stat = self.cmpKey(Node.data, data)
+			stat = self.cmpKey(Node.data, key)
 			if stat < 0:
-				return self.__get(data, Node.left)
+				return self.__get(key, Node.left)
 			elif stat > 0:
-				return  self.__get(data, Node.right)
+				return  self.__get(key, Node.right)
 			else:
 				return Node.data
 
