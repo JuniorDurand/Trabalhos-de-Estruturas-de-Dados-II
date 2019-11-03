@@ -30,7 +30,7 @@ class List(object):
 			yield cur.data
 			cur = cur.next
 
-	def __defaultCMP(data, key):
+	def __defaultCMP(self,data, key):
 		if data == key:
 			return True
 		else:
