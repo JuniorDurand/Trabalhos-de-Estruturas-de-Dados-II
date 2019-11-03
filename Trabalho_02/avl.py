@@ -46,10 +46,10 @@ class  AvlTree(object):
 			bal = self.__getBalance(Node)
 
 			if bal > 1 and self.cmp(Node.left.data, data ) < 0:
-				return self.__leftRotation(Node)
+				return self.__rightRotation(Node)
 
 			elif bal < -1 and self.cmp(Node.right.data, data) > 0:
-				return self.__rightRotation(Node)
+				return self.__leftRotation(Node)
 
 			elif bal > 1 and self.cmp(Node.left.data, data) > 0:
 				Node.left = self.__leftRotation(Node.left)
@@ -62,7 +62,6 @@ class  AvlTree(object):
 			else:
 				return Node
 
-
 	def insert(self, data):
 		self.root = self.__insert(data, self.root)
 
@@ -70,7 +69,7 @@ class  AvlTree(object):
 		if Node is None:
 			return 0
 		else:
-			return Node.h
+			return max(self.__getH(Node.right), self.__getH(Node.left)) + 1
 		
 	def __getBalance(self, Node):
 		if Node is None:
