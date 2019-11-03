@@ -143,9 +143,52 @@ def OP1(est1, est2, Name):
 		return str(l)
 
 
+#OP2 Inserir em B, os elementos de A que Não estão em B
+
+
+def OP2List(lista1, lista2):
+	if not (lista1 is None or lista2 is None):
+		for item in lista1:
+			aux = lista2.get(item)
+			if aux == None:
+				lista2.append(item)
+		
+
+
+def OP2Hash(lista, Hash):
+	if not (lista is None or Hash is None):
+		for item in lista:
+			aux = Hash.get(item)
+			if aux == None:
+				Hash.insert(item)
+		
+
+def OP2BTree(lista, BTree):
+	if not (lista is None or BTree is None):
+		for item in lista:
+			aux = BTree.get(item)
+			if aux == None:
+				BTree.insert(item)
+		
 
 
 
+def OP2AVL(lista, AVL):
+	if not (lista is None or AVL is None):
+		for item in lista:
+			aux = AVL.get(item)
+			if aux == None:
+				AVL.insert(item)
+		
+
+
+def OP2RB(lista, RB):
+	if not (lista is None or RB is None):
+		for item in lista:
+			aux = RB.get(item)
+			if aux == None:
+				RB.insert(item)
+		
 
 
 
