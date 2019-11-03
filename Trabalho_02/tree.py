@@ -145,6 +145,8 @@ class BTree(object):
 				return  self.__get(key, Node.right)
 			else:
 				return Node.data
+		else:
+			return None
 
 
 	def get(self, key):

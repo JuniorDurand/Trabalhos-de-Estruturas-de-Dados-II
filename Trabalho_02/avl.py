@@ -147,7 +147,7 @@ class  AvlTree(object):
 				return self.__get(key, Node.right)
 
 		#return None
-		raise NameError("Nonexistent data")
+		return None
 
 
 
