@@ -239,12 +239,11 @@ Os primeiros testes foram realizados testes com o conjunto A com 1.000 chaves e 
 | Conjunto A |Conjunto B  |
 |:--:|:--:|
 |1.000|5.000 |
-|1000|100.000|
-|1000|500.000|
-|50000|100.000|
-|50000|500.000|
-|50000|1.000.000|
-|100000|500.000|
+|1.000|100.000|
+|1.000|500.000|
+|50.000|100.000|
+|50.000|500.000|
+|100.000|500.000|
 
 ### Primeiro Caso
 Conjunto A com 1000 e conjunto B com 5000
