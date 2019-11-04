@@ -1,0 +1,527 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório ED 2</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="relatório-segundo-trabalho-ed-2">Relatório segundo trabalho ED 2</h1>
+<p>O presente trabalho consiste em encontrar elementos pertencentes a dois conjuntos e realizar operações de inserção e remoção caso o elementos esteja em um conjunto e não em outro, etc.<br>
+Para isso deve ser implementadas as estruturas de dados:</p>
+<ul>
+<li>Lista simplesmente encadeada</li>
+<li>Hash table</li>
+<li>Árvore binaria de busca</li>
+<li>Árvore AVL</li>
+<li>Árvore Rubro Negra</li>
+</ul>
+<h2 id="arquivos">Arquivos</h2>
+<p>O arquivos fornecidos possuem chaves numéricas com 1000, 5000, 10000, 50000, 100000, 500000 e 1000000  chaves. As chaves devem ser armazenas nas estruturas de dados especificadas.<br>
+O conjunto com menor quantidade de chaves deve ser armazenada na lista simplesmente encadeada, o segundo conjunto deve ser armazenada conforme a escolha do usuário.</p>
+<h2 id="estruturas-implementadas">Estruturas Implementadas</h2>
+<p>Para o presente trabalho foram implementadas as seguintes estruturas de dados:</p>
+<h3 id="lista-simplesmente-encadeada">Lista Simplesmente Encadeada</h3>
+<p>A lista simplesmente encadeada foi implementa sob duas classes, a classe Node, e a classe List<br>
+A classe node possui um ponteiro para o objeto Node.data definido no construtor da classe, e um ponteiro Node.next que aponta para o próximo Nó, mas é inicializado com o valor None (equivalente ao NULL da linguagem C).</p>
+<pre><code>class Node(object):
+	def __init__(self, data):
+		self.data = data
+		self.next = None	
+</code></pre>
+<p>A classe List implementa a estrutura da lista e seus principais métodos, seus atributos são List.first que é inicializado com None, e List.len que é inicializado com 0.</p>
+<pre><code>class List(object):
+	def __init__(self):
+		self.first = None
+		self.len = 0
+</code></pre>
+<p>Seus métodos implementados foram o **append ** que insere um elemento no inicio da lista, o <strong>get</strong> que retorna o elemento por uma chave e recebe por argumento uma função de comparação, caso a função não seja definida é usada uma função de comparação padrão. e a  função <strong>remove</strong> que remove um elemento dada um chave.<br>
+Também foram implementadas métodos de interface da linguagem python como a função <em>def __iter__(self):</em> que implementa um iterador a lista.</p>
+<h3 id="hash-table">Hash Table</h3>
+<p>A estrutura <strong>Hash Table</strong> foi implementada em duas classes a <strong>HashItem</strong> que guarda o dado e possui as flags de controle.</p>
+<pre><code>class HashItem:
+	def  __init__(self):
+		self.key = None
+		self.data = None
+		self.stat = "None"
+</code></pre>
+<p>O atributo stat é a flag de controle inicializada com “None” para itens vazios, “insert” para itens ocupados, e “remove” para itens removidos.<br>
+A classe <strong>HashTable</strong> implementa a estrutura da tabela hash, ela possui um lista de <em>HashItens</em>, um tamanho (Quantidade de HashItens Alocados), e um atributo len com a quantidade de elementos inseridos na estrutura.<br>
+O tamanho escolhido foi 37, por ser um numero primo e por não ser par, Quando a tabela chegar a 70% de sua capacidade é alocada uma nova tabela com capacidade 37<sup>x</sup> sendo x a quantidade de vezes que esta operação ja foi realizada.</p>
+<pre><code>class HashTable(object):
+	def __init__(self, len=37):
+		self.len = len
+		self.numItens = 0
+		self.lista = []
+		for i in range(self.len):
+			self.lista.append(HashItem())
+</code></pre>
+<p>Para esta estrutura foram implementados os métodos <strong>insert</strong>, <strong>get</strong> e <strong>remove</strong></p>
+<h3 id="árvore-binaria-de-pesquisa">Árvore Binaria de Pesquisa</h3>
+<p>A estrutura foi implementada em duas classes, a classe TNode, com um ponteiro para os dados, inicializados no construtor da classe, e dois ponteiros para suas sub-árvores, inicializados com valor None.</p>
+<pre><code>class TNode(object):
+
+	def __init__(self, data):
+		self.data = data
+		self.left = None
+		self.right = None
+</code></pre>
+<p>E a classe BTree, que implementa a estrutura da árvore e seus principais métodos. Seus atributos são a raiz, que é inicializada por None, e duas funções de comparação, Uma para comparar dois objetos do mesmo tipo, para a inserção, e uma para comparar a chave com os dados da árvore para a remoção e busca. Caso essas funções não sejam definidas, é usada um função padrão de comparação implementada na própria classe.</p>
+<pre><code>class BTree(object):
+	def __init__(self, CMPFunc = None, CMPKey = None):
+		self.root = None
+		if CMPFunc == None:
+			self.cmp = self.defautCMP
+		else:
+			self.cmp = CMPFunc
+		if CMPKey == None:
+			self.cmpKey = self.defautCMP
+		else:
+			self.cmpKey = CMPKey
+</code></pre>
+<p>Foram implementados os métodos <strong>insert</strong>, <strong>get</strong>  e <strong>remove</strong>.</p>
+<h3 id="árvore-avl">Árvore AVL</h3>
+<p>A árvore AVL foi implementada recursivamente utilizando duas classes, a <strong>TNode</strong>, e a <strong>AvlTree</strong>. A classe <strong>TNode</strong> possui um ponteiro para o dado, e dois ponteiros para as sub-árvores, além de um atributo para a altura do nó.</p>
+<pre><code>class TNode(object):
+	def __init__(self, data):
+		self.data = data
+		self.left = None
+		self.right = None
+		self.h = 0
+</code></pre>
+<p>A classe <strong>AvlTree</strong> implementa a estrutura e os métodos básicos do TAD, seus atributos são a o Nó raiz inicializado com None, e as duas funções de comparação, uma para comparação de chaves, e outras comparação de objetos para inserção. Caso as funções não forem definidas há uma função de comparação padrão na classe.</p>
+<pre><code>class  AvlTree(object):
+	def __init__(self, funCMP=None, funCMPKey = None):
+		self.root = None
+		if funCMP is None:
+			self.cmp = self.defautCMP
+		else:
+			self.cmp = funCMP
+		if funCMPKey is None:
+			self.cmpKey = self.defautCMP
+		else:
+			self.cmpKey = funCMPKey  
+</code></pre>
+<p>Para essa estrutura foram implementados os métodos <strong>insert</strong> e <strong>get</strong></p>
+<h3 id="árvore-rubro-negra">Árvore Rubro Negra</h3>
+<p>A Árvore Rubro Negra foi implementada de forma iterativa tendo em vista as operações em que é necessário o Nó avô, ou o Nó tio. para isso incluso na classe <strong>TNode</strong> o atributo <em>parent</em>, que aponta para o Nó pai.</p>
+<pre><code>class TNode(object):
+	def __init__(self, data=None, left=None, right=None, parent=None, color=True):
+		self.data = data
+		self.left = left
+		self.right = right
+		self.parent = parent
+		self.color = color #true is red; false is black
+</code></pre>
+<p>Também foram acrescentados métodos a classe estrutural da árvore <strong>RedBlack</strong>, como <em>getColor</em>. A classe RedBlack possui como atributos o Nó raiz, e as duas funções de comparação.</p>
+<pre><code>class RedBlack(object):
+	def __init__(self, funCMP=None, funCMPKey = None):
+		self.__root = None
+		if funCMP is None:
+			self.cmp = self.defautCMP
+		else:
+			self.cmp = funCMP
+		if funCMPKey is None:
+			self.cmpKey = self.defautCMP
+		else:
+			self.cmpKey = funCMPKey
+</code></pre>
+<p>Para essa estrutura foram implementados os métodos <strong>insert</strong> e <strong>get</strong></p>
+<h2 id="estrutura-do-trabalho">Estrutura do Trabalho</h2>
+<p>O trabalho foi estruturado em dois arquivos, o <strong>main</strong>.<strong>py</strong> onde são definidos os parâmetros por linha de comando e o método <strong>main</strong>, e o arquivo <strong>utils</strong>.<strong>py</strong> onde são definidas funções utilitárias como a leitura dos arquivos e o carregamento dos dados nas estruturas.<br>
+O arquivo de saída é nomeado como “out.txt”</p>
+<h3 id="linha-de-comando">Linha de Comando</h3>
+<p>deve ser passado por linha de comando os arquivos, a estrutura onde será carregado o segundo arquivo, e o tipo de operação.</p>
+<pre><code>python3 main.py [conjunto a] [conjunto b] [estrutura] [op]
+</code></pre>
+<ul>
+<li>[conjunto a] arquivo menor que será carregado na lista</li>
+<li>[conjunto b] arquivo maior que será carregado na estrutura definida</li>
+<li>[estrutura] estrutura utilizada para carregar o conjunto b<br>
+– lista<br>
+– hash<br>
+– binary_tree<br>
+– avl<br>
+– red_black</li>
+<li>[op] operação realizada<br>
+– 1  : interseção dos elementos de A e B<br>
+– 2 : inserir em B, os elementos de A que não estão em B<br>
+– 3 : remover os elementos de A que estão em B</li>
+</ul>
+<p>Exemplo:</p>
+<pre><code>python3 main.py data/files1000.txt data/files5000.txt hash 3
+</code></pre>
+<h3 id="carregamento-dos-arquivos">Carregamento dos Arquivos</h3>
+<p>O carregamento de arquivos foi realizado através de uma função definida na utils, ela ler a unica linha do arquivo, trata a string removendo as “[]”, e posteriormente separa por ", " para converter os números para o tipo <strong>int</strong>, e retorna uma lista da biblioteca padrão do python com os inteiros.</p>
+<pre><code>def readAchive(arq):
+	file = open(arq, "r")
+	string = file.read()
+	string = string.replace('[', '')
+	string = string.replace(']', '')
+	lista = string.split(", ")
+	listNum = []
+	for item in lista:
+		listNum.append(int(item))
+	return listNum
+</code></pre>
+<h3 id="carregamento-das-estruturas">Carregamento das Estruturas</h3>
+<p>As estruturas são carregadas a partir das lista retornadas da função anterior. A estrutura é instanciada, e posteriormente é inserido item a item da lista na estrutura.</p>
+<pre><code>def loadAVL(lista):
+	if not lista is None:
+		MyAVL = AvlTree()
+		for item in lista:
+			MyAVL.insert(item)
+		return MyAVL
+	return None
+</code></pre>
+<h3 id="operação-1">Operação 1</h3>
+<p>A operação 1 é a interseção do conjunto A com o conjunto B. Primeiramente é alocado uma lista para guardar os elementos que estão em A e em B, depois para cada elemento de A, usa-se a função de busca em B. caso retorne um valor valido significa que este elemento está presente nos dois conjuntos, e é inserido na lista. Ao fim a lista com a interseção é retornada.</p>
+<pre><code>def OP1BTree(lista, BTree):
+	if not (lista is None or BTree is None):
+		inter = []
+		for item in lista:
+			aux = BTree.get(item)
+			if aux == item:
+				inter.append(item)
+		return inter
+</code></pre>
+<p>O arquivo de saída contem a interseção dos dois conjuntos.</p>
+<h3 id="operação-2">Operação 2</h3>
+<p>A operação 2 é inserir no Conjunto  B, os elementos de A que não estão em B, para isso é necessário percorrer a lista com o conjunto A, e para cada elemento de A é feita uma busca no conjunto B, caso essa busca retorne um valor invalido, inserimos o elemento em B. e por fim é retornado a string da estrutura B (equivalente ao toString do java).</p>
+<pre><code>def OP2RB(lista, RB):
+	if not (lista is None or RB is None):
+		for item in lista:
+			aux = RB.get(item)
+			if aux == None:
+				RB.insert(item)
+		return str(RB)
+</code></pre>
+<p>O arquivo de saída possui os itens do segundo conjunto.</p>
+<h3 id="operação-3">Operação 3</h3>
+<p>A operação 3 é remover os elementos do conjunto A que também pertencem ao conjunto B. Com isso para cada item de A é feita uma busca em B, caso essa busca retorne um valor valido, o item é removido de A. Ao fim se retorna uma string com todos os elementos de A.</p>
+<pre><code>def OP3Hash(lista, Hash):
+	if not (lista is None or Hash is None):
+		for item in lista:
+			aux = Hash.get(item)
+			if aux != None:
+				lista.remove(item)
+		return str(lista)
+</code></pre>
+<p>O arquivo de saída possui os elementos do conjunto A.</p>
+<h2 id="resultados">Resultados</h2>
+<p>Os resultados foram conseguidos através do intervalo de tempo em que as estruturas eram carregadas e a operação era realizada, não contabilizando o tempo de leitura dos arquivos.</p>
+<p>Os primeiros testes foram realizados testes com o conjunto A com 1.000 chaves e o conjunto B com 5.000, 10.000, 100.000 e 1.000.000 chaves.</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Conjunto A</th>
+<th align="center">Conjunto B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.000</td>
+<td align="center">5.000</td>
+</tr>
+<tr>
+<td align="center">1.000</td>
+<td align="center">100.000</td>
+</tr>
+<tr>
+<td align="center">1.000</td>
+<td align="center">500.000</td>
+</tr>
+<tr>
+<td align="center">50.000</td>
+<td align="center">100.000</td>
+</tr>
+<tr>
+<td align="center">50.000</td>
+<td align="center">500.000</td>
+</tr>
+<tr>
+<td align="center">100.000</td>
+<td align="center">500.000</td>
+</tr>
+</tbody>
+</table><h3 id="primeiro-caso">Primeiro Caso</h3>
+<p>Conjunto A com 1000 e conjunto B com 5000</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Estrutura</th>
+<th align="center">OP1</th>
+<th align="center">OP2</th>
+<th align="center">OP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lista</td>
+<td align="center">6,02s</td>
+<td align="center">6,20s</td>
+<td align="center">6,34s</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">0,45s</td>
+<td align="center">0,47s</td>
+<td align="center">0,62s</td>
+</tr>
+<tr>
+<td align="center">Av. Binaria</td>
+<td align="center">18,56s</td>
+<td align="center">19,87s</td>
+<td align="center">19,23s</td>
+</tr>
+<tr>
+<td align="center">Av. AVL</td>
+<td align="center">1,01s</td>
+<td align="center">1,66s</td>
+<td align="center">1,22s</td>
+</tr>
+<tr>
+<td align="center">Av. RN</td>
+<td align="center">0,47s</td>
+<td align="center">0,62s</td>
+<td align="center">0,74s</td>
+</tr>
+</tbody>
+</table><h3 id="segundo-caso">Segundo Caso</h3>
+<p>Conjunto A com 1.000 e conjunto B com 100.000</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Estrutura</th>
+<th align="center">OP1</th>
+<th align="center">OP2</th>
+<th align="center">OP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lista</td>
+<td align="center">79,46s</td>
+<td align="center">67,68s</td>
+<td align="center">71,61s</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">7,01s</td>
+<td align="center">9,90s</td>
+<td align="center">7,86s</td>
+</tr>
+<tr>
+<td align="center">Av. Binaria</td>
+<td align="center">ERROR</td>
+<td align="center">ERROR</td>
+<td align="center">ERROR</td>
+</tr>
+<tr>
+<td align="center">Av. AVL</td>
+<td align="center">9,10s</td>
+<td align="center">10,82s</td>
+<td align="center">9,05s</td>
+</tr>
+<tr>
+<td align="center">Av. RN</td>
+<td align="center">3,59s</td>
+<td align="center">5,98s</td>
+<td align="center">4,58s</td>
+</tr>
+</tbody>
+</table><p>Neste teste a arvore binaria de pesquisa apresentou o error:<br>
+MemoryError: stack overflow</p>
+<h3 id="terceiro-caso">Terceiro Caso</h3>
+<p>Conjunto A com 1.000 e conjunto B com 500.000</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Estrutura</th>
+<th align="center">OP1</th>
+<th align="center">OP2</th>
+<th align="center">OP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lista</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">8,09s</td>
+<td align="center">15,7s</td>
+<td align="center">7,42s</td>
+</tr>
+<tr>
+<td align="center">Av. Binaria</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">Av. AVL</td>
+<td align="center">52,38s</td>
+<td align="center">69,41s</td>
+<td align="center">74,37s</td>
+</tr>
+<tr>
+<td align="center">Av. RN</td>
+<td align="center">28,22s</td>
+<td align="center">42,84s</td>
+<td align="center">20,99s</td>
+</tr>
+</tbody>
+</table><h3 id="quarto-caso">Quarto Caso</h3>
+<p>Conjunto A com 50.000 e conjunto B com 100.000</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Estrutura</th>
+<th align="center">OP1</th>
+<th align="center">OP2</th>
+<th align="center">OP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lista</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">7,09s</td>
+<td align="center">9,31s</td>
+<td align="center">13,92s</td>
+</tr>
+<tr>
+<td align="center">Av. Binaria</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">Av. AVL</td>
+<td align="center">12,37s</td>
+<td align="center">17,86s</td>
+<td align="center">18,29s</td>
+</tr>
+<tr>
+<td align="center">Av. RN</td>
+<td align="center">5,82s</td>
+<td align="center">10,48s</td>
+<td align="center">14,67s</td>
+</tr>
+</tbody>
+</table><h3 id="quinto-caso">Quinto Caso</h3>
+<p>Conjunto A com 50.000 e conjunto B com 500.000</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Estrutura</th>
+<th align="center">OP1</th>
+<th align="center">OP2</th>
+<th align="center">OP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lista</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">7,01s</td>
+<td align="center">16,29s</td>
+<td align="center">45,14s</td>
+</tr>
+<tr>
+<td align="center">Av. Binaria</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">Av. AVL</td>
+<td align="center">49,11s</td>
+<td align="center">81,50s</td>
+<td align="center">144,62</td>
+</tr>
+<tr>
+<td align="center">Av. RN</td>
+<td align="center">22,11s</td>
+<td align="center">38,42s</td>
+<td align="center">111,94s</td>
+</tr>
+</tbody>
+</table><h3 id="sexto-caso">Sexto Caso</h3>
+<p>Conjunto A com 100.000 e conjunto B com 500.000</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Estrutura</th>
+<th align="center">OP1</th>
+<th align="center">OP2</th>
+<th align="center">OP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lista</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">7,75s</td>
+<td align="center">17,20s</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">Av. Binaria</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">Av. AVL</td>
+<td align="center">122,81s</td>
+<td align="center">110,01s</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">Av. RN</td>
+<td align="center">22,84s</td>
+<td align="center">38,97s</td>
+<td align="center">–</td>
+</tr>
+</tbody>
+</table><h2 id="conclusão">Conclusão</h2>
+<p>Na primeira Operação A arvore rubro negra e o hashtable possuem desempenho parecido com arquivos pequenos, mas para arquivos grandes como no terceiro, quinto e sexto caso as tabelas hash são consideravelmente melhores.<br>
+As listas não foram utilizadas a partir do terceiro caso pois o tempo utilizado estava muito grande, superando 30 minutos no terceiro caso, dessa forma o processo foi interrompido, e não foi utilizado nos outros testes, tendo em vista que o processamento seria pior.<br>
+As arvores binarias de pesquisas não foram muito boas no primeiro caso, talvez pelo custo do processo recursivo, no segundo caso a pilha recursiva da arvore binaria de pesquisa ultrapassou o limite de 1000 recursões definidas por padrão no python sendo necessário mudar o limite através da biblioteca <strong>sys</strong>, isso significa que uma sub-árvore estava com altura maior que 1000, evidenciando o desbalanceamento da árvore.<br>
+No terceiro caso, a arvore binaria retornou o erro de <em>stack overflow</em>, significa que a pilha recursiva ultrapassou a memoria reservada pela linguagem, a partir deste teste não foi mais utilizado nos testes posteriores.<br>
+As árvores AVL, não possuíram os mesmos problemas da árvore binaria de pesquisa, porém a arvore rubro negra teve um desempenho superior, talvez pela implementação recursiva da avl.<br>
+No sexto caso não foi realizado a terceira operação pelo mesmo fato, de não utilizar as listas a partir do terceiro caso, o custo de remoção na lista simplesmente encadeada é maior que nas outras estruturas.</p>
+</div>
+</body>
+
+</html>
