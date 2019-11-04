@@ -56,7 +56,7 @@ class HashTable(object):
 		if self.numItens < int(self.len*0.7):
 			posi = hash(key)%self.len
 			initPosi = posi
-			while self.lista[posi].stat == 'insert':
+			while self.lista[posi].stat == 'insert' and posi < self.len:
 				if self.lista[posi].key == key:
 					break
 				posi = posi+1%self.len

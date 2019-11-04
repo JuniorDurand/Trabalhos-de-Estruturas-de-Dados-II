@@ -17,6 +17,12 @@ def readAchive(arq):
 	return listNum
 
 
+def writeArchive(arq, string):
+	file = open(arq,'w')
+	file.write(string)
+	file.close()
+
+
 def loadLista(lista):
 	if not lista is None:
 		MyList = List()
@@ -162,7 +168,7 @@ def OP2Hash(lista, Hash):
 		for item in lista:
 			aux = Hash.get(item)
 			if aux == None:
-				Hash.insert(item)
+				Hash.insert(item,item)
 		
 		return str(Hash)
 		

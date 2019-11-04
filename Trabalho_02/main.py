@@ -3,6 +3,7 @@ from avl import AvlTree
 from redblack import RedBlack
 from hash import HashTable
 from list import List 
+import sys
 
 
 from utils import *
@@ -12,8 +13,10 @@ import time
 
 
 
+
 if __name__ == "__main__":
 
+	sys.setrecursionlimit(10**6)
 
 	parser = argparse.ArgumentParser()
 
@@ -69,31 +72,24 @@ if __name__ == "__main__":
 
 		result = OP1(A, segundoData, estrutura_dados)
 
-		print("========")
-		print(result)
-		print("========")
+
 
 	elif operacao == 2:
 
 		result = OP2(A, segundoData, estrutura_dados)
 
-		print("========")
-		print(result)
-		print("========")
 
 	elif operacao == 3:
 
 		result = OP3(A, segundoData, estrutura_dados)
 
-		print("========")
-		print(result)
-		print("========")
 
 	else:
 		print("Operação invalida")
 		exit()
 
-
+	arq = "out.txt"
+	writeArchive(arq, result)
 	end = time.time()
 	print("tempo de execução : ", end-start)
 
