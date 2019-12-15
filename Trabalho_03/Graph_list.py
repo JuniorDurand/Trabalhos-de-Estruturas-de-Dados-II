@@ -144,9 +144,9 @@ class Vertex(object):
 
 	def __repr__(self):
 		string = ""
-		string += "%d :\n" % (self.num)
-		for x in range(len(self.listAdj)):
-			string += "\t %d, %.5f\n" % (self.listAdj[x].num, self.listWeight[x]) 
+		string += "\n%d: " % (self.num)
+		for x in self.listAdj[::-1]:
+			string += "%d " % (x.num) 
 		return string
 		
 
@@ -218,6 +218,14 @@ class Graph(object):
 		string += "]"
 		return string
 
+	def __repr__(self):
+		string = ""
+		for row in self.vertex:
+			string += row.__repr__()
+
+		string += ""
+		return string
+
 
 	def BFS(self, u = None):
 		self.resetGraph()
@@ -247,6 +255,36 @@ class Graph(object):
 		self.resetGraph()
 		if u is None:
 			u = self.vertex[0]
+		else:
+			u = self.vertex[u]
+
+		max = [0, None]
+
+		queue = []
+		#dist, Vertex.
+		queue.append([0,u])
+
+		while len(queue) > 0:
+			#print(queue)
+			count, u = queue.pop()
+			EDGEs = u.getEDGEs()
+			for EDGE in EDGEs:
+				if EDGE.cor == "branco":
+					queue.append([count+1,EDGE])
+					EDGE.cor = "cinza"
+					EDGE.dist = count+1
+					EDGE.pi = u
+
+					# para excentricidade
+					if max[0] <= count+1:
+						max = [count+1, EDGE]
+			u.cor = "preto"
+		return max[0]
+
+	def eccentricityVertex(self, u = None):
+		self.resetGraph()
+		if u is None:
+			u = self.vertex[0]
 		elif u is int:
 			u = self.vertex[u]
 
@@ -255,6 +293,7 @@ class Graph(object):
 		queue = []
 		#dist, Vertex.
 		queue.append([0,u])
+
 		while len(queue) > 0:
 			#print(queue)
 			count, u = queue.pop()
@@ -274,20 +313,20 @@ class Graph(object):
 
 
 	def Diameter(self):
-		maxEcc = self.eccentricity(u = self.vertex[0])
+		maxEcc = self.eccentricityVertex(u = self.vertex[0])
 		for EDGE in self.vertex[1:]:
-			x = self.eccentricity(u = EDGE)
+			x = self.eccentricityVertex(u = EDGE)
 			if x > maxEcc:
-				x = maxEcc
+				maxEcc = x
 		return maxEcc
 
 
 	def Radius(self):
-		minEcc = self.eccentricity(u = self.vertex[0])
+		minEcc = self.eccentricityVertex(u = self.vertex[0])
 		for EDGE in self.vertex[1:]:
-			x = self.eccentricity(u = EDGE)
+			x = self.eccentricityVertex(u = EDGE)
 			if x < minEcc:
-				x = minEcc
+				minEcc = x
 		return minEcc
 
 
