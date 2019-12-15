@@ -464,4 +464,5 @@ O resultado grafo orientado:
 
 ## Referencias 
 [1] .  Graph measurements: length, distance, diameter, eccentricity, radius, center, disponível em: *[https://www.geeksforgeeks.org/graph-measurements-length-distance-diameter-eccentricity-radius-center/](https://www.geeksforgeeks.org/graph-measurements-length-distance-diameter-eccentricity-radius-center/)*
+<br>
 [2].  Grafos - Departamento de Computação e Matemática - USP, disponível em: *[http://dcm.ffclrp.usp.br/~augusto/teaching/aedii/AED-II-Grafos.pdf](http://dcm.ffclrp.usp.br/~augusto/teaching/aedii/AED-II-Grafos.pdf)*
